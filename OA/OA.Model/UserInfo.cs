@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OA.Model {
     public class UserInfo {
+        [Key]
         public int Id { get; set; }
         public string UName { get; set; }
         public string UPwd { get; set; }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace OA.Model {
     public class OAContext : DbContext {
-        public OAContext() : base("name = OAContext") {}
+        public OAContext() : base("OAContext") {}
         
-        public DbSet<>
+        public DbSet<UserInfo> UserInfo { get; set; }
     }
 }
