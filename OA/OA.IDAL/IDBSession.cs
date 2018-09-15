@@ -12,5 +12,7 @@ namespace OA.IDAL {
     public interface IDBSession {
         DbContext Db { get; }
         IUserInfoDal UserInfoDal { get; set; }
-    }
+
+        bool SaveChanges();
+        }
 }
