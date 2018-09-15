@@ -17,12 +17,12 @@ namespace OA.DAL {
         }
 
         public bool DeleteEntity(T entity) {
-            context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
+            context.Entry(entity).State = EntityState.Deleted;
             return true;//context.SaveChanges() > 0;
         }
 
         public bool EditEntity(T entity) {
-            context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            context.Entry(entity).State = EntityState.Modified;
             return true;// context.SaveChanges() > 0;
         }
 
