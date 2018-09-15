@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OA.DAL {
     public class BaseDal<T> where T:class,new () {
-        DbContext context = DBContextFactory.CreateDbContext()
+        DbContext context = DBContextFactory.CreateDbContext();
         public T AddEntity(T entity) {
             context.Set<T>().Add(entity);
             //context.SaveChanges();
