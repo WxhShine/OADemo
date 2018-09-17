@@ -16,6 +16,7 @@
     <script src="~/Scripts/datapattern.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" charset="UTF-8"></script>
     <script type="text/javascript">
         $(function () {
             $("#addDiv").css("display", "none");
@@ -51,18 +52,13 @@
                 pageNumber: 1,//当前页，默认的
                 pageList: [5, 10, 15],
                 queryParams: pars,//往后台传递参数
-                columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
+                columns: [[
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
                     { field: 'ID', title: '编号', width: 80 },
                     { field: 'UName', title: '姓名', width: 120 },
                     { field: 'UPwd', title: '密码', width: 120 },
                     { field: 'Remark', title: '备注', width: 120 },
-                    {
-                        field: 'SubTime', title: '时间', width: 80, align: 'right',
-                        formatter: function (value, row, index) {
-                            return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
-                        }
-                    }
+                    { field: 'SubTime', title: '时间', width: 80 },
                 ]],
                 toolbar: [{
                     id: 'btnDelete',
@@ -139,7 +135,6 @@
                 }]
             });
         }
-
 
         //为用户配置角色.
         function showSetUserRoleInfo() {
@@ -261,7 +256,7 @@
                     },
                     UPwd: {
                         required: true,
-                        minlength: 5
+                        minlength: 3
                     },
                     Sort: {
                         required: true
@@ -274,7 +269,7 @@
                     },
                     UPwd: {
                         required: "请输入密码",
-                        minlength: jQuery.format("密码不能小于{0}个字 符")
+                        minlength: $.format("密码不能小于{0}个字 符")
                     },
                     Sort: {
                         required: "请输入排序"
@@ -282,6 +277,24 @@
                 }
             });
         }
+        $.format = function (source, params) {
+            if (arguments.length == 1)
+                return function () {
+                    var args = $.makeArray(arguments);
+                    args.unshift(source);
+                    return $.format.apply(this, args);
+                };
+            if (arguments.length > 2 && params.constructor != Array) {
+                params = $.makeArray(arguments).slice(1);
+            }
+            if (params.constructor != Array) {
+                params = [params];
+            }
+            $.each(params, function (i, n) {
+                source = source.replace(new RegExp("\\{" + i + "\\}", "g"), n);
+            });
+            return source;
+        };
         //展示一下要修改的数据.
         function showEditInfo() {
             //判断一下用户是否选择了要修改的数据
@@ -299,7 +312,7 @@
                 $("#txtSort").val(data.Sort);
                 $("#txtSubTime").val(ChangeDateFormat(data.SubTime));
                 $("#txtDelFlag").val(data.DelFlag);
-                $("#txtId").val(data.ID);
+                $("#txtId").val(data.Id);
             });
             $("#editDiv").css("display", "block");
             $('#editDiv').dialog({
@@ -367,7 +380,7 @@
     <!--------------修改数据---------------------->
     <div id="editDiv">
         @using (Ajax.BeginForm("EditUserInfo", "UserInfo", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterEdit" }, new { id = "editForm" })) {
-            <input type="hidden" name="ID" id="txtId" />
+            <input type="hidden" name="Id" id="txtId" />
             <input type="hidden" name="SubTime" id="txtSubTime" />
             <input type="hidden" name="DelFlag" id="txtDelFlag" />
             <table>
