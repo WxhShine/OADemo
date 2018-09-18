@@ -33,7 +33,7 @@ namespace OA.WebApp.Controllers
             var userInfoSearch = new UserInfoSearch() { UserName = userName, UserRemark = userRemark, PageIndex = pageIndex, PageSize = pageSize, TotalCount = totalCount };
             var delFlag = (short)DeleteEnumType.Normal;
             //var userInfoList = bll.LoadPageEntities(pageIndex, pageSize, out totalCount, c => c.DelFlag == delFlag, c => c.Id,true).ToList();
-            var userInfoList = bll.LoadSearchEntities(userInfoSearch, delFlag);
+            var userInfoList = bll.LoadSearchEntities(userInfoSearch, delFlag).ToList();
             var temp = userInfoList.Select(x => new { ID = x.Id, UName = x.UName, UPwd = x.UPwd, Remark = x.Remark, SunTime = x.SubTime.ToString("yyyy-MM-dd") });
             return Json(new { rows = temp.ToList(), total = userInfoSearch.TotalCount});
         }
