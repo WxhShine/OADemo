@@ -2,6 +2,7 @@
 using OA.IBLL;
 using OA.Model;
 using OA.Model.Enum;
+using OA.Model.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +24,18 @@ namespace OA.WebApp.Controllers
         /// 加载用户管理页面
         /// </summary>
         /// <returns></returns>
-        public  ActionResult GetUserInfoList() {
+        public ActionResult GetUserInfoList() {
             int pageIndex = Request["page"] != null ? int.Parse(Request["page"]) : 1;
             int pageSize = Request["rows"] != null ? int.Parse(Request["rows"]) : 5;
-            int totalCount;
+            string userName = Request["name"];
+            string userRemark = Request["remark"];
+            int totalCount = 0;
+            var userInfoSearch = new UserInfoSearch() { UserName = userName, UserRemark = userRemark, PageIndex = pageIndex, PageSize = pageSize, TotalCount = totalCount };
             var delFlag = (short)DeleteEnumType.Normal;
-            var userInfoList = bll.LoadPageEntities(pageIndex, pageSize, out totalCount, c => c.DelFlag == delFlag, c => c.Id,true).ToList();
+            //var userInfoList = bll.LoadPageEntities(pageIndex, pageSize, out totalCount, c => c.DelFlag == delFlag, c => c.Id,true).ToList();
+            var userInfoList = bll.LoadSearchEntities(userInfoSearch, delFlag);
             var temp = userInfoList.Select(x => new { ID = x.Id, UName = x.UName, UPwd = x.UPwd, Remark = x.Remark, SunTime = x.SubTime.ToString("yyyy-MM-dd") });
-            return Json(new { rows = temp.ToList(), total = totalCount});
+            return Json(new { rows = temp.ToList(), total = userInfoSearch.TotalCount});
         }
 
         /// <summary>

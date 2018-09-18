@@ -1,5 +1,6 @@
 ﻿using OA.DALFactory;
 using OA.IDAL;
+using OA.Model.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,17 @@ namespace OA.BLL {
             return  CurrentDal.LoadEntities(whereLambda);
         }
 
+        /// <summary>
+        /// 加载数据
+        /// </summary>
+        /// <typeparam name="S"></typeparam>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="whereLambda"></param>
+        /// <param name="orderbyLambda"></param>
+        /// <param name="isAsc"></param>
+        /// <returns></returns>
         public IQueryable<T> LoadPageEntities<S> (int pageIndex,int pageSize, out int totalCount,Expression<Func<T,bool>> whereLambda, Expression<Func<T,S>> orderbyLambda,bool isAsc) {
             return CurrentDal.LoadPageEntities(pageIndex, pageSize, out totalCount, whereLambda, orderbyLambda, isAsc);
         }
