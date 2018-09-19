@@ -13,7 +13,7 @@ namespace OA.WebApp.Controllers
 {
     public class UserInfoController : Controller
     {
-        IUserInfoService bll= new UserInfoService();
+        IUserInfoService Bll { get; set; }
         // GET: UserInfo
         public ActionResult Index()
         {
@@ -33,7 +33,7 @@ namespace OA.WebApp.Controllers
             var userInfoSearch = new UserInfoSearch() { UserName = userName, UserRemark = userRemark, PageIndex = pageIndex, PageSize = pageSize, TotalCount = totalCount };
             var delFlag = (short)DeleteEnumType.Normal;
             //var userInfoList = bll.LoadPageEntities(pageIndex, pageSize, out totalCount, c => c.DelFlag == delFlag, c => c.Id,true).ToList();
-            var userInfoList = bll.LoadSearchEntities(userInfoSearch, delFlag).ToList();
+            var userInfoList = Bll.LoadSearchEntities(userInfoSearch, delFlag).ToList();
             var temp = userInfoList.Select(x => new { ID = x.Id, UName = x.UName, UPwd = x.UPwd, Remark = x.Remark, SunTime = x.SubTime.ToString("yyyy-MM-dd") });
             return Json(new { rows = temp.ToList(), total = userInfoSearch.TotalCount});
         }
@@ -49,7 +49,7 @@ namespace OA.WebApp.Controllers
             foreach (string id in strIds) {
                 list.Add(Convert.ToInt32(id));
             }
-            if (bll.DeleteEntities(list)) {
+            if (Bll.DeleteEntities(list)) {
                 return Content("ok");
             } else {
                 return Content("no");
@@ -65,7 +65,7 @@ namespace OA.WebApp.Controllers
             userInfo.DelFlag = 0;
             userInfo.ModifiedOn = DateTime.Now;
             userInfo.SubTime = DateTime.Now;
-            bll.AddEntity(userInfo);
+            Bll.AddEntity(userInfo);
             return Content("ok");
         }
 
@@ -76,7 +76,7 @@ namespace OA.WebApp.Controllers
         /// <returns></returns>
         public ActionResult ShowEditInfo() {
             int id = int.Parse(Request["id"]);
-            var userInfo = bll.LoadEntities(u => u.Id == id).FirstOrDefault();
+            var userInfo = Bll.LoadEntities(u => u.Id == id).FirstOrDefault();
             return Json(userInfo, JsonRequestBehavior.AllowGet);
         }
 
@@ -88,7 +88,7 @@ namespace OA.WebApp.Controllers
         public ActionResult EditUserInfo(UserInfo userInfo) {
 
             userInfo.ModifiedOn = DateTime.Now;
-            if (bll.EditEntity(userInfo)) {
+            if (Bll.EditEntity(userInfo)) {
                 return Content("ok");
             } else {
                 return Content("no");
