@@ -94,5 +94,11 @@ namespace OA.WebApp.Controllers
                 return Content("no");
             }
         }
+
+        public ActionResult mul() {
+            int q = 0;
+            var i = 9 / q;
+            return null;
+        }
     }
 }
