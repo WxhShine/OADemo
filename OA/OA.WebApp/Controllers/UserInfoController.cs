@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace OA.WebApp.Controllers
 {
-    public class UserInfoController : Controller
+    public class UserInfoController : BaseController
     {
         IUserInfoService Bll { get; set; }
         // GET: UserInfo
