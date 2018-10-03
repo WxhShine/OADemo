@@ -37,7 +37,7 @@ namespace OA.BLL {
             var temp = CurrentDal.LoadEntities(c => c.DelFlag == delFlag);
             //根据用户名来搜索
             if (!string.IsNullOrEmpty(userInfoSearch.UserName)) {
-                temp = temp.Where(u => u.UName.Contains(userInfoSearch.UserName));
+                temp = temp.Where(u => u.Name.Contains(userInfoSearch.UserName));
             }
             if (!string.IsNullOrEmpty(userInfoSearch.UserRemark)) {
                 temp = temp.Where(u => u.Remark.Contains(userInfoSearch.UserRemark));

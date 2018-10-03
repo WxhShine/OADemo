@@ -46,7 +46,7 @@ namespace OA.WebApp.Controllers
             }
             string userName = Request["LoginCode"];
             string userPwd = Request["LoginPwd"];
-            var userInfo = UserInfoService.LoadEntities(x => x.UName == userName && x.UPwd == userPwd).FirstOrDefault();
+            var userInfo = UserInfoService.LoadEntities(x => x.Name == userName && x.Pwd == userPwd).FirstOrDefault();
             if (userInfo != null) {
                 //在此用session储存有隐患,不支持分布式系统
                 Session["userInfo"] = userInfo;

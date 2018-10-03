@@ -18,7 +18,7 @@ namespace OA.WebApp.Models {
             ExecptionQueue.Enqueue(ex);
             //跳转到错误页面.
             filterContext.HttpContext.Response.Redirect
-                (@"~\Views\Shared\Error.cshtml");
+                ("/Login/Index");
         }
     }
 }
