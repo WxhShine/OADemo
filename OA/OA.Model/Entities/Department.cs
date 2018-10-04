@@ -11,8 +11,12 @@ namespace OA.Model {
             this.UserInfo = new HashSet<UserInfo>();
         }
 
+        /// <summary>
+        /// 父级Id
+        /// </summary>
         public int ParentId { get; set; }
         public string TreePath { get; set; }
+        
         public int Level { get; set; }
         public bool IsLeaf { get; set; }
 

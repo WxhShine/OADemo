@@ -9,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OA.BLL {
+    /// <summary>
+    /// 用户业务逻辑类
+    /// </summary>
     public class UserInfoService : BaseService<UserInfo>, IUserInfoService {
 
         public override void SetCurrentDal() {

@@ -13,6 +13,15 @@ namespace OA.IDAL {
         DbContext Db { get; }
         IUserInfoDal UserInfoDal { get; set; }
 
+        IActionInfoDal ActionInfoDal { get; set; }
+
+        IDepartmentDal DepartmentDal { get; set; }
+
+        IR_UserInfo_ActionInfoDal R_UserInfo_ActionInfoDal { get; set; }
+
+        IRoleInfoDal RoleInfoDal { get; set; }
+
+
         bool SaveChanges();
         }
 }

@@ -10,43 +10,75 @@ using System.Threading.Tasks;
 
 namespace OA.BLL {
     public abstract class BaseService<T> where T: class, new () {
+        /// <summary>
+        /// 当前的数据会话层
+        /// </summary>
         public IDBSession CurrentDBSession {
             get { return DBSessionFactory.CreateDBSession(); }
         }
-        public IDAL.IBaseDal<T> CurrentDal { get; set; }
+        /// <summary>
+        /// 当前数据访问层
+        /// </summary>
+        public IBaseDal<T> CurrentDal { get; set; }
+
+        /// <summary>
+        /// 设置当前数据访问层
+        /// </summary>
         public abstract void SetCurrentDal();
+
         public BaseService() {
             SetCurrentDal();//子类实现抽象方法。
-        }
-        public IQueryable<T> LoadEntities(Expression<Func<T, bool>> whereLambda) {
-            return  CurrentDal.LoadEntities(whereLambda);
         }
 
         /// <summary>
         /// 加载数据
         /// </summary>
-        /// <typeparam name="S"></typeparam>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="totalCount"></param>
         /// <param name="whereLambda"></param>
-        /// <param name="orderbyLambda"></param>
-        /// <param name="isAsc"></param>
+        /// <returns></returns>
+        public IQueryable<T> LoadEntities(Expression<Func<T, bool>> whereLambda) {
+            return  CurrentDal.LoadEntities(whereLambda);
+        }
+
+        /// <summary>
+        /// 分页加载数据
+        /// </summary>
+        /// <typeparam name="S"></typeparam>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">一页的显示个数</param>
+        /// <param name="totalCount">总数</param>
+        /// <param name="whereLambda">条件过滤的lambda表达式</param>
+        /// <param name="orderbyLambda">排序的lambda表达式</param>
+        /// <param name="isAsc">是否升序</param>
         /// <returns></returns>
         public IQueryable<T> LoadPageEntities<S> (int pageIndex,int pageSize, out int totalCount,Expression<Func<T,bool>> whereLambda, Expression<Func<T,S>> orderbyLambda,bool isAsc) {
             return CurrentDal.LoadPageEntities(pageIndex, pageSize, out totalCount, whereLambda, orderbyLambda, isAsc);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public bool DeleteEntity(T entity) {
             CurrentDal.DeleteEntity(entity);
             return CurrentDBSession.SaveChanges();
         }
 
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public bool EditEntity(T entity) {
             CurrentDal.EditEntity(entity);
             return CurrentDBSession.SaveChanges();
         }
         
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public T AddEntity(T entity) {
             CurrentDal.AddEntity(entity);
             CurrentDBSession.SaveChanges();

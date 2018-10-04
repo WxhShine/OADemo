@@ -8,7 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OA.DAL {
-    public class UserInfoDal :BaseDal<UserInfo>, IUserInfoDal {
+    /// <summary>
+    /// 用户数据操作类
+    /// </summary>
+    public partial class UserInfoDal :BaseDal<UserInfo>, IUserInfoDal {
        
     }
 }

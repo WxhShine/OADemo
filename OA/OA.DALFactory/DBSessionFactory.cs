@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OA.DALFactory {
+    /// <summary>
+    /// 通过数据会话层工厂,保证线程唯一性
+    /// </summary>
     public class DBSessionFactory {
         public static IDBSession CreateDBSession() {
             IDBSession DbSession = (IDBSession)CallContext.GetData("dbSession");

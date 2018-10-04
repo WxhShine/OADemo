@@ -7,7 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OA.IBLL {
-    public interface IUserInfoService:IBaseService<UserInfo> {
+    /// <summary>
+    /// 用户业务逻辑接口
+    /// </summary>
+    public partial interface IUserInfoService:IBaseService<UserInfo> {
         /// <summary>
         /// 批量删除
         /// </summary>

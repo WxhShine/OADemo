@@ -19,7 +19,7 @@ namespace OA.Model {
         /// <summary>
         /// 逻辑删除标识
         /// </summary>
-        public bool DelFlag { get; set; }
+        public short DelFlag { get; set; }
         /// <summary>
         /// 修改时间
         /// </summary>
