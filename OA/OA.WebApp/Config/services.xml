@@ -2,4 +2,10 @@
 <objects>
   <object type ="OA.BLL.UserInfoService,OA.BLL" singleton="flase" name="UserInfoService">
   </object>
+  <object type ="OA.BLL.RoleInfoService,OA.BLL" singleton="flase" name="RoleInfoService">
+  </object>
+  <object type ="OA.BLL.ActionInfoService,OA.BLL" singleton="flase" name="ActionInfoService">
+  </object>
+  <object type ="OA.BLL.R_UserInfo_ActionInfoService,OA.BLL" singleton="flase" name="R_UserInfo_ActionInfoService">
+  </object>
 </objects>

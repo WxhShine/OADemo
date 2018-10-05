@@ -11,7 +11,7 @@ namespace OA.Model {
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime SubTime { get; set; }
+        public string SubTime { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
@@ -23,6 +23,6 @@ namespace OA.Model {
         /// <summary>
         /// 修改时间
         /// </summary>
-        public DateTime ModifiedOn { get; set; }
+        public string ModifiedOn { get; set; }
     }
 }

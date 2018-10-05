@@ -7,11 +7,6 @@ namespace OA.Model {
     /// 权限类别表
     /// </summary>
     public class ActionInfo : BaseEntity{
-        public ActionInfo() {
-            this.R_UserInfo_ActionInfo = new HashSet<R_UserInfo_ActionInfo>();
-            this.Department = new HashSet<Department>();
-            this.RoleInfo = new HashSet<RoleInfo>();
-        }
 
         /// <summary>
         /// 此权限的url地址(控制器的方法地址)
@@ -49,8 +44,8 @@ namespace OA.Model {
         public int IconWidth { get; set; }
         public int IconHeight { get; set; }
 
-        public virtual ICollection<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
-        public virtual ICollection<Department> Department { get; set; }
-        public virtual ICollection<RoleInfo> RoleInfo { get; set; }
+        public virtual List<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
+        public virtual List<Department> Department { get; set; }
+        public virtual List<RoleInfo> RoleInfo { get; set; }
     }
 }

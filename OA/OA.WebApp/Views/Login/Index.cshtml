@@ -23,9 +23,9 @@
         }
         function afterLogin(data) {
             var serverData = data.split(':');
-            window.alert(serverData[0]);
+            window.alert(data);
             if (serverData[0] == "ok") {
-                window.location.href = "/Home/HomePage"
+                window.location.href = "/Home/Index"
             } else {
                 $("#errorMsg").css("display", "block");
                 $("#errorMsg").text(serverData[1]);
@@ -182,7 +182,7 @@
                                         账号：
                                     </td>
                                     <td align="left">
-                                        <input type="text" name="LoginCode" id="LoginCode" class="login-text"\\\\ />
+                                        <input type="text" name="LoginCode" id="LoginCode" class="login-text" />
 
                                     </td>
                                 </tr>

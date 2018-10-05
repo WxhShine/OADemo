@@ -7,11 +7,6 @@ namespace OA.Model {
     /// 用户表
     /// </summary>
     public class UserInfo : BaseEntity {
-        public UserInfo() {
-            this.R_UserInfo_ActionInfo = new HashSet<R_UserInfo_ActionInfo>();
-            this.Department = new HashSet<Department>();
-            this.RoleInfo = new HashSet<RoleInfo>();
-        }
         /// <summary>
         /// 用户密码
         /// </summary>
@@ -22,10 +17,10 @@ namespace OA.Model {
         public string Sort { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
+        public virtual List<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
         [JsonIgnore]
-        public virtual ICollection<Department> Department { get; set; }
+        public virtual List<Department> Department { get; set; }
         [JsonIgnore]
-        public virtual ICollection<RoleInfo> RoleInfo { get; set; }
+        public virtual List<RoleInfo> RoleInfo { get; set; }
     }
 }

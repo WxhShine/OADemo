@@ -2,11 +2,19 @@
 <objects xmlns="http://www.springframework.net">
 
   <object type ="OA.WebApp.Controllers.UserInfoController,OA.WebApp" singleton="false">
-    <property name="Bll" ref="UserInfoService"></property>
+    <property name="UserInfoService" ref="UserInfoService"></property>
+    <property name="RoleInfoService" ref="RoleInfoService"></property>
+    <property name="ActionInfoService" ref="ActionInfoService"></property>
+    <property name="R_UserInfo_ActionInfoService" ref="R_UserInfo_ActionInfoService"></property>
   </object>
 
   <object type ="OA.WebApp.Controllers.LoginController,OA.WebApp" singleton="false">
     <property name="UserInfoService" ref="UserInfoService"></property>
+  </object>
+
+  <object type ="OA.WebApp.Controllers.RoleInfoController,OA.WebApp" singleton="false">
+    <property name="RoleInfoService" ref="RoleInfoService"></property>
+    <property name="ActionInfoService" ref="ActionInfoService"></property>
   </object>
   
 </objects>

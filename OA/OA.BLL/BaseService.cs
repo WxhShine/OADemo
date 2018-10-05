@@ -1,5 +1,6 @@
 ﻿using OA.DALFactory;
 using OA.IDAL;
+using OA.Model;
 using OA.Model.Search;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OA.BLL {
-    public abstract class BaseService<T> where T: class, new () {
+    public abstract class BaseService<T> where T: IdEntity, new () {
         /// <summary>
         /// 当前的数据会话层
         /// </summary>
@@ -61,6 +62,19 @@ namespace OA.BLL {
         /// <returns></returns>
         public bool DeleteEntity(T entity) {
             CurrentDal.DeleteEntity(entity);
+            return CurrentDBSession.SaveChanges();
+        }
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public bool BatchDeleteEntities(List<int> ids) {
+            var entitis = LoadEntities(x => ids.Contains(x.Id));
+            foreach(var item in entitis) {
+                CurrentDal.DeleteEntity(item);
+            }
             return CurrentDBSession.SaveChanges();
         }
 

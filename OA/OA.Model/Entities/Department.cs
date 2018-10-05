@@ -6,10 +6,6 @@ namespace OA.Model {
     /// 部门表
     /// </summary>
     public class Department : BaseEntity {
-        public Department() {
-            this.ActionInfo = new HashSet<ActionInfo>();
-            this.UserInfo = new HashSet<UserInfo>();
-        }
 
         /// <summary>
         /// 父级Id
@@ -20,7 +16,7 @@ namespace OA.Model {
         public int Level { get; set; }
         public bool IsLeaf { get; set; }
 
-        public virtual ICollection<ActionInfo> ActionInfo { get; set; }
-        public virtual ICollection<UserInfo> UserInfo { get; set; }
+        public virtual List<ActionInfo> ActionInfo { get; set; }
+        public virtual List<UserInfo> UserInfo { get; set; }
     }
 }
