@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace OA.WebApp.Controllers {
-    public class HomeController : BaseController {
+    public class HomeController : Controller {
         // GET: Home
         public ActionResult Index() {
             return View();

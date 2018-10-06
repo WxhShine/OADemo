@@ -31,7 +31,7 @@
                     remark: $("#txtSearchRemark").val()
                 };
                 //将获取的搜索的数据发送到服务端。
-                loadData(pars);
+                loadData(pars)
             });
             loadData();
         });
@@ -111,7 +111,7 @@
                 $.messager.alert("提示", "请选择要分配权限的用户", "error");
                 return;
             }
-            $("#setUserActionFrame").attr("src", "/UserInfo/ShowUserAction/?userId=" + rows[0].ID);
+            $("#setUserActionFrame").attr("src", "/UserInfo/ShowUserActionInfo/?userId=" + rows[0].ID);
             $("#setUsrActionDiv").css("display", "block");
             $('#setUsrActionDiv').dialog({
                 title: '为用户分配权限数据',
@@ -250,11 +250,11 @@
         function validateInfo(control) {
             control.validate({//表示对哪个form表单进行校验，获取form标签的id属性的值
                 rules: {//表示验证规则
-                    UName: "required",//表示对哪个表单元素进行校验，要写具体的表单元素的name属性的值
+                    Name: "required",//表示对哪个表单元素进行校验，要写具体的表单元素的name属性的值
                     Remark: {
                         required: true
                     },
-                    UPwd: {
+                    Pwd: {
                         required: true,
                         minlength: 3
                     },
@@ -263,13 +263,13 @@
                     }
                 },
                 messages: {
-                    UName: "请输入用户名",
+                    Name: "请输入用户名",
                     Remark: {
                         required: "请输入备注"
                     },
-                    UPwd: {
+                    Pwd: {
                         required: "请输入密码",
-                        minlength: $.format("密码不能小于{0}个字 符")
+                        minlength: "密码不能小于{0}个字 符"
                     },
                     Sort: {
                         required: "请输入排序"
@@ -277,24 +277,6 @@
                 }
             });
         }
-        $.format = function (source, params) {
-            if (arguments.length == 1)
-                return function () {
-                    var args = $.makeArray(arguments);
-                    args.unshift(source);
-                    return $.format.apply(this, args);
-                };
-            if (arguments.length > 2 && params.constructor != Array) {
-                params = $.makeArray(arguments).slice(1);
-            }
-            if (params.constructor != Array) {
-                params = [params];
-            }
-            $.each(params, function (i, n) {
-                source = source.replace(new RegExp("\\{" + i + "\\}", "g"), n);
-            });
-            return source;
-        };
         //展示一下要修改的数据.
         function showEditInfo() {
             //判断一下用户是否选择了要修改的数据
@@ -305,14 +287,14 @@
             }
             //将要修改的数据查询出来，显示到文本框中。
             var id = rows[0].ID;
-            $.post("/UserInfo/ShowEditInfo", { "id": id }, function (data) {
-                $("#txtUName").val(data.UName);
-                $("#txtUPwd").val(data.UPwd);
-                $("#txtRemark").val(data.Remark);
-                $("#txtSort").val(data.Sort);
-                $("#txtSubTime").val(ChangeDateFormat(data.SubTime));
-                $("#txtDelFlag").val(data.DelFlag);
-                $("#txtId").val(data.Id);
+            $.post("/UserInfo/ShowEditInfo", { id: id }, function (res) {
+                $("#txtName").val(res.Name);
+                $("#txtPwd").val(res.Pwd);
+                $("#txtRemark").val(res.Remark);
+                $("#txtSort").val(res.Sort);
+                $("#txtSubTime").val(res.SubTime);
+                $("#txtDelFlag").val(res.DelFlag);
+                $("#txtId").val(res.Id);
             });
             $("#editDiv").css("display", "block");
             $('#editDiv').dialog({
@@ -348,13 +330,6 @@
                 $.messager.alert("提示", "修改的数据失败", "error");
             }
         }
-        //将序列化成json格式后日期(毫秒数)转成日期格式
-        function ChangeDateFormat(cellval) {
-            var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
-            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-            return date.getFullYear() + "-" + month + "-" + currentDate;
-        }
     </script>
 
 
@@ -369,8 +344,8 @@
     <div id="addDiv">
         @using (Ajax.BeginForm("AddUserInfo", "UserInfo", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterAdd" }, new { id = "addForm" })) {
             <table>
-                <tr><td>用户名</td><td><input type="text" name="UName" /></td></tr>
-                <tr><td>密码</td><td><input type="password" name="UPwd" /></td></tr>
+                <tr><td>用户名</td><td><input type="text" name="Name" /></td></tr>
+                <tr><td>密码</td><td><input type="password" name="Pwd" /></td></tr>
                 <tr><td>备注</td><td><input type="text" name="Remark" /></td></tr>
                 <tr><td>排序</td><td><input type="text" name="Sort" /></td></tr>
             </table>
@@ -384,8 +359,8 @@
             <input type="hidden" name="SubTime" id="txtSubTime" />
             <input type="hidden" name="DelFlag" id="txtDelFlag" />
             <table>
-                <tr><td>用户名</td><td><input type="text" name="UName" id="txtUName" /></td></tr>
-                <tr><td>密码</td><td><input type="text" name="UPwd" id="txtUPwd" /></td></tr>
+                <tr><td>用户名</td><td><input type="text" name="Name" id="txtName" /></td></tr>
+                <tr><td>密码</td><td><input type="text" name="Pwd" id="txtPwd" /></td></tr>
                 <tr><td>备注</td><td><input type="text" name="Remark" id="txtRemark" /></td></tr>
                 <tr><td>排序</td><td><input type="text" name="Sort" id="txtSort" /></td></tr>
             </table>
@@ -402,3 +377,4 @@
 
 </body>
 </html>
+  

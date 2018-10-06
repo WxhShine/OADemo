@@ -57,14 +57,6 @@ namespace OA.WebApp.Controllers
         }
 
         /// <summary>
-        /// 展示角色权限
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ShowRoleAction() {
-            return View();
-        }
-
-        /// <summary>
         /// 删除角色
         /// </summary>
         /// <returns></returns>
@@ -98,6 +90,42 @@ namespace OA.WebApp.Controllers
             roleInfo.ModifiedOn = DateTime.Now.ToString();
             if (RoleInfoService.EditEntity(roleInfo)) return Content("Ok");
             return Content("No");
+        }
+
+        /// <summary>
+        /// 显示角色权限
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ShowRoleAction() {
+            int id = int.Parse(Request["id"]);
+            var roleInfo = RoleInfoService.LoadEntities(x => x.Id == id).FirstOrDefault();
+            ViewBag.RoleInfo = roleInfo;
+            var actionInfoList = ActionInfoService.LoadEntities(x => x.DelFlag == (short)DeleteEnumType.Normal).ToList();
+            var roleActionIds = roleInfo.ActionInfo.Select(x => x.Id).ToList();
+            ViewBag.ActionInfoList = actionInfoList;
+            ViewBag.RoleActionIdList = roleActionIds;
+            return View();
+        }
+
+        /// <summary>
+        /// 设置角色权限
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SetRoleAction() {
+            int roleId = int.Parse(Request["roleId"]);//获取角色编号
+            string[] allKeys = Request.Form.AllKeys;//获取所有表单元素name属性的值。
+            List<int> list = new List<int>();
+            foreach (string key in allKeys) {
+                if (key.StartsWith("action_")) {
+                    string k = key.Replace("action_", "");
+                    list.Add(Convert.ToInt32(k));
+                }
+            }
+            if (RoleInfoService.SetRoleActionInfo(roleId, list)) {
+                return Content("ok");
+            } else {
+                return Content("no");
+            }
         }
     }
 }

@@ -23,5 +23,20 @@ namespace OA.IBLL {
         /// <param name="userInfoSearch">封装的搜索条件数据</param>
         /// <returns></returns>
         IQueryable<UserInfo> LoadSearchEntities(UserInfoSearch userInfoSearch, short delFlag);
+        /// <summary>
+        /// 设置用户角色信息
+        /// </summary>
+        /// <param name="userId">用户Id</param>
+        /// <param name="roleIdList">角色id集合</param>
+        /// <returns></returns>
+        bool SetUserRoleInfo(int userId, List<int> roleIdList);
+        /// <summary>
+        /// 设置用户权限
+        /// </summary>
+        /// <param name="actionId"></param>
+        /// <param name="userId"></param>
+        /// <param name="isPass"></param>
+        /// <returns></returns>
+        bool SetUserActionInfo(int actionId, int userId, bool isPass);
     }
 }
